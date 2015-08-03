@@ -134,7 +134,9 @@ getPlayerStats :: PlayerArchive -> PlayerStats
 
 ## Build
 
-Build system uses no tools or dependencies that aren't in a docker image. Only have docker installed and type one of the commands below, it shouldn't bother with any missing dependencies.
+Build system uses no tools or dependencies that aren't in a docker image, except for make. Only have docker installed and type one of the commands below, it shouldn't bother with any missing dependencies.
+
+If you find it more conveniant, you can use locally installed haxe by setting `export dhaxe=/path/to/haxe`
 
 ### Javascript
 
