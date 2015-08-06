@@ -96,7 +96,15 @@ class Alkindi {
     public static function simpleLevelUpdate( scores : Array<PlayerScoreAndLevel>
                                             , username: String
                                             ) : LevelUpdate {
-        return emptyLevelUpdate();
+        var highest = 0;
+        var score = 0;
+
+        for (scorelevel in scores) {
+            if (scorelevel.score > highest) highest = scoreLevel.score;
+            if (username == scorelevel.username) score = scoreLevel.score;
+        }
+
+        return { levelUpdate: (score == highest) && 30 || 7 };
     }
 
     public static function simpleLevelDecay( then : Date
