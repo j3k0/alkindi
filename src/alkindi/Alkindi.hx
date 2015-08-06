@@ -100,11 +100,17 @@ class Alkindi {
         var score = 0;
 
         for (scorelevel in scores) {
-            if (scorelevel.score > highest) highest = scoreLevel.score;
-            if (username == scorelevel.username) score = scoreLevel.score;
+            if (scorelevel.score > highest) highest = scorelevel.score;
+            if (username == scorelevel.username) score = scorelevel.score;
         }
 
-        return { levelUpdate: (score == highest) && 30 || 7 };
+        var newLevel : Int;
+        if (score == highest)
+            newLevel = 30;
+        else
+            newLevel = 7;
+        
+        return { newLevel: newLevel };
     }
 
     public static function simpleLevelDecay( then : Date
