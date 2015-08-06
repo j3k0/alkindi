@@ -56,17 +56,11 @@ class Alkindi {
 
         var outcomes = [];
 
-        var levels : Map<String, Int> = new Map();
-
-        for (player in game.players) {
-            levels[player.username] = getLevel(archives, player.username);
-        }
-
         var scoreLevels = [
             for (player in game.players)
                 { username: player.username
                 , score: player.score
-                , level: levels[player.username]
+                , level: getLevel(archives, player.username)
                 }
         ];
 
