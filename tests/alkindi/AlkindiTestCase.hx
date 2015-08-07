@@ -8,6 +8,6 @@ import alkindi.Fxp;
 class AlkindiTestCase extends haxe.unit.TestCase {
 
     public function testAddGame() {
-        assertTrue(true);
+        assertEquals(0, Alkindi.addGame(null,null,null,null).length);
     }
 }
