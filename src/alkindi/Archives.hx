@@ -5,7 +5,7 @@ import alkindi.Fxp;
 import alkindi.Types;
 
 // Extract data from the players archives
-class Archive {
+class Archives {
 
     // Level for a player that never played any game
     public static inline var STARTING_LEVEL:Level = 0;

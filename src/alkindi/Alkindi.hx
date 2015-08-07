@@ -2,7 +2,7 @@ package alkindi;
 
 import alkindi.Fxp;
 import alkindi.Types;
-import alkindi.Archive;
+import alkindi.Archives;
 using Lambda;
 
 class F {
@@ -37,7 +37,7 @@ class F {
     public static inline function
     decayedLevel (decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game, player:PlayerScoreAndLevel): PlayerScoreAndLevel
         return updateLevel(player, 
-            Archive.lastGameDate(archives, player.username).maybe(
+            Archives.lastGameDate(archives, player.username).maybe(
                 { newLevel: player.level },
                 decay.bind(_, game.date, player.level)));
 
@@ -75,8 +75,8 @@ class F {
         if (update == null || decay == null || archives == null || game == null)
             return [];
 
-        var players = getPlayers(game).filter(Archive.dontContain.bind(archives, game));
-        var scoreAndLevels = Archive.getScoreAndLevels(archives, players);
+        var players = getPlayers(game).filter(Archives.dontContain.bind(archives, game));
+        var scoreAndLevels = Archives.getScoreAndLevels(archives, players);
         var decayed = scoreAndLevels.map(decayedLevel.bind(decay, archives, game));
         var updated = decayed.map(updatedLevel.bind(update, decayed));
         return outcomes(game, updated);

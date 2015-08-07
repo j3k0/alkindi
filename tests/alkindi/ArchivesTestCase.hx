@@ -2,10 +2,10 @@ package alkindi;
 
 import haxe.Int64;
 import alkindi.Types;
-import alkindi.Archive;
+import alkindi.Archives;
 import alkindi.Fxp;
 
-class ArchiveTestCase extends haxe.unit.TestCase {
+class ArchivesTestCase extends haxe.unit.TestCase {
 
     public static function getTrue<T>(x:T) return true;
 
@@ -18,10 +18,10 @@ class ArchiveTestCase extends haxe.unit.TestCase {
             games: []
         }];
         assertTrue(
-            Archive.forPlayer(archives, "jeko")
+            Archives.forPlayer(archives, "jeko")
             .maybe(false, getTrue));
         assertEquals("jeko",
-            Archive.forPlayer(archives, "jeko")
+            Archives.forPlayer(archives, "jeko")
             .maybe("", Types.getUsername));
     }
 
@@ -38,7 +38,7 @@ class ArchiveTestCase extends haxe.unit.TestCase {
         }];
 
         assertEquals(1,
-            Archive.forPlayer(archives, "sousou")
+            Archives.forPlayer(archives, "sousou")
             .map(Types.getGames)
             .map(Reflect.field.bind(_, "length"))
             .maybe(-1, Fxp.id));
@@ -49,7 +49,7 @@ class ArchiveTestCase extends haxe.unit.TestCase {
         };
 
         assertEquals(4,
-            Archive.lastGame(archives, "sousou")
+            Archives.lastGame(archives, "sousou")
             .map(Types.getOutcome)
             .map(Types.getNewLevel)
             .maybe(-1, Fxp.id));
