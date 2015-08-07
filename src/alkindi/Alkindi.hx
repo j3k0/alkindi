@@ -3,36 +3,10 @@ package alkindi;
 import alkindi.Fxp;
 import alkindi.Types;
 import alkindi.Archives;
+import alkindi.Games;
 using Lambda;
 
 class F {
-
-    public static inline function
-    maxScore (s1:Score, s2:Score): Score
-        return Std.int(Math.max(s1,s2));
-
-    public static var
-    getBestScore: Array<PlayerScore> -> Score
-        = Fxp.compose(
-            Lambda.fold.bind(_, maxScore, 0),
-            Lambda.map.bind(_, Types.getScore)
-        );
-
-    public static inline function
-    isWinner (bestScore:Score, player:PlayerScore): PlayerWinner
-        return {
-            username: player.username,
-            winner: player.score == bestScore
-        }
-
-    public static inline function
-    getWinners (bestScore:Score, players:Array<PlayerScore>): Array<PlayerWinner>
-        return players.map(isWinner.bind(bestScore));
-
-
-    public static inline function
-    getPlayers (game:Game): Array<PlayerScore>
-        return Maybe.of(game).map(Types.getPlayers).maybe([], Fxp.id);
 
     public static inline function
     decayedLevel (decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game, player:PlayerScoreAndLevel): PlayerScoreAndLevel
@@ -75,7 +49,7 @@ class F {
         if (update == null || decay == null || archives == null || game == null)
             return [];
 
-        var players = getPlayers(game).filter(Archives.dontContain.bind(archives, game));
+        var players = Games.getPlayers(game).filter(Archives.dontContain.bind(archives, game));
         var scoreAndLevels = Archives.getScoreAndLevels(archives, players);
         var decayed = scoreAndLevels.map(decayedLevel.bind(decay, archives, game));
         var updated = decayed.map(updatedLevel.bind(update, decayed));
