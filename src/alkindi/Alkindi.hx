@@ -1,101 +1,120 @@
 package alkindi;
 
-import alkindi.Game;
-import alkindi.Level;
-import alkindi.Stats;
+import alkindi.Fxp;
+import alkindi.Types;
+import alkindi.Archive;
+using Lambda;
 
+class F {
+
+    public static inline function
+    maxScore (s1:Score, s2:Score): Score
+        return Std.int(Math.max(s1,s2));
+
+    public static inline function
+    getPlayers (game:Game): Array<PlayerScore>
+        return Maybe.of(game).map(Types.getPlayers).maybe([], Fxp.id);
+
+    public static var
+    getBestScore: Array<PlayerScore> -> Score
+        = Fxp.compose(
+            Lambda.fold.bind(_, maxScore, 0),
+            Lambda.map.bind(_, Types.getScore)
+        );
+
+    public static inline function
+    isWinner (bestScore:Score, player:PlayerScore): PlayerWinner
+        return {
+            username: player.username,
+            winner: player.score == bestScore
+        }
+
+    public static inline function
+    getWinners (bestScore:Score, players:Array<PlayerScore>): Array<PlayerWinner>
+        return players.map(isWinner.bind(bestScore));
+
+    public static inline function
+    getScoreAndLevel (archives:Array<PlayerArchive>, player:PlayerScore): PlayerScoreAndLevel
+        return {
+            username: player.username,
+            score: player.score,
+            level: Archive.getLevel(archives, player.username)
+        }
+
+    public static inline function
+    getScoreAndLevels (archives:Array<PlayerArchive>, players:Array<PlayerScore>): Array<PlayerScoreAndLevel>
+        return players.map(getScoreAndLevel.bind(archives));
+
+    public static inline function
+    decayedLevel (decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game, player:PlayerScoreAndLevel): PlayerScoreAndLevel
+        return updateLevel(player, 
+            Archive.lastGameDate(archives, player.username).maybe(
+                { newLevel: player.level },
+                decay.bind(_, game.date, player.level)));
+
+    public static inline function
+    updateLevel (player:PlayerScoreAndLevel, levelUpdate:LevelUpdate): PlayerScoreAndLevel
+        return {
+            username: player.username,
+            score: player.score,
+            level: Types.getNewLevel(levelUpdate)
+        }
+
+    public static inline function
+    updatedLevel (update:LevelUpdateFunction, players:Array<PlayerScoreAndLevel>, player:PlayerScoreAndLevel): PlayerScoreAndLevel
+        return updateLevel(player, update(players, player.username));
+
+    public static inline function
+    outcome (game:Game, player:PlayerScoreAndLevel): PlayerGameOutcome
+        return {
+            username: player.username,
+            game: {
+                game: game,
+                outcome: {
+                    newLevel: player.level
+                }
+            }
+        };
+
+    public static inline function
+    outcomes (game:Game, players:Array<PlayerScoreAndLevel>): Array<PlayerGameOutcome>
+        return players.map(outcome.bind(game));
+
+    public static inline function
+    addGame(update:LevelUpdateFunction, decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game) : Array<PlayerGameOutcome>
+    {
+        if (update == null || decay == null || archives == null || game == null)
+            return [];
+
+        var players = getPlayers(game).filter(Archive.dontContain.bind(archives, game));
+        var scoreAndLevels = getScoreAndLevels(archives, players);
+        var decayed = scoreAndLevels.map(decayedLevel.bind(decay, archives, game));
+        var updated = decayed.map(updatedLevel.bind(update, decayed));
+        return outcomes(game, updated);
+        //var bestScore = players.maybe(0, getBestScore);
+        //var winlose = players.map(getWinners.bind(bestScore));
+        //return null;
+    }
+}
 
 @:expose
 class Alkindi {
-    static function emptyLevelUpdate(){ return {newLevel: 0}; }
+    static function emptyLevelUpdate() return { newLevel: 0 };
 
-    static function emptyPlayerStats(){
-        return { username: ""
-               , victories: []
-               , defeats: []
-               , rankings: []
-               , winningSprees: []
-               };
+    static function emptyPlayerStats() return {
+        username: "",
+        victories: [],
+        defeats: [],
+        rankings: [],
+        winningSprees: []
     };
 
-    static function getLevel(archives:Array<PlayerArchive>, player:String) {
-        for (archive in archives) {
-            if (archive.username == player) {
-                return archive.games[-1].outcome.newLevel;
-            }
-        }
-        return 0;
-    }
+    public static function
+    addGame (update:LevelUpdateFunction, decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game): Array<PlayerGameOutcome>
+        return F.addGame(update, decay, archives, game);
 
-    static function getLastPlay(archives:Array<PlayerArchive>, player:String, game:Game) {
-        for (archive in archives) {
-            if (archive.username == player) {
-                return archive.games[-1].game.date;
-            }
-        }
-        return game.date;
-    }
-
-    static function hasGame(archives:Array<PlayerArchive>, player:String, game:Game) {
-        for (archive in archives) {
-            if (archive.username == player) {
-                for (existing in archive.games) {
-                    if (existing.game == game) return true;
-                }
-                return false;
-            }
-        }
-        return false;
-    }
-
-    public static function addGame( update : LevelUpdateFunction
-                                  , decay : LevelDecayFunction
-                                  , archives : Array<PlayerArchive>
-                                  , game : Game
-                                  ) : Array<PlayerGameOutcome> {
-
-        var outcomes = [];
-
-        var scoreLevels = [
-            for (player in game.players)
-                { username: player.username
-                , score: player.score
-                , level: getLevel(archives, player.username)
-                }
-        ];
-
-        for (player in game.players) {
-            var name = player.username;
-
-            // TODO if we can safely assume that if ANY of the
-            // player archives contain this game, then they ALL will...
-            // we can check for that much earlier in the function (cheaply enough)
-            // and save a lot more time
-            if (hasGame(archives, name, game)) continue;
-
-            var lastPlay = getLastPlay(archives, name, game);
-            var updated = update(scoreLevels, name);
-            var decayed = decay(lastPlay, game.date, updated.newLevel);
-
-            var gameOutcome =
-                { game: game
-                , outcome: decayed
-                }
-
-            outcomes.push(
-                { username: name
-                , game: gameOutcome
-                }
-            );
-        }
-
-        return outcomes;
-        
-    }
-
-    public static function simpleLevelUpdate( scores : Array<PlayerScoreAndLevel>
-                                            , username: String
-                                            ) : LevelUpdate {
+    public static function
+    simpleLevelUpdate (scores:Array<PlayerScoreAndLevel>, username:String): LevelUpdate {
         var highest = 0;
         var score = 0;
 

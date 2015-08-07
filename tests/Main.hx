@@ -6,6 +6,8 @@ class Main {
 
     var r = new haxe.unit.TestRunner();
     r.add(new AlkindiTestCase());
+    r.add(new ArchiveTestCase());
+    r.add(new FxpTestCase());
     // add other TestCases here
 
     // finally, run the tests
