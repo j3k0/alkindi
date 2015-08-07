@@ -50,4 +50,18 @@ class Archive {
             .chain(lastGame.bind(_, player))
             .map(Types.getOutcome)
             .maybe(STARTING_LEVEL, Types.getNewLevel);
+
+    // Add level to the PlayerScore of a given player
+    public static inline function
+    getScoreAndLevel (archives:Array<PlayerArchive>, player:PlayerScore): PlayerScoreAndLevel
+        return {
+            username: player.username,
+            score: player.score,
+            level: getLevel(archives, player.username)
+        }
+
+    // Add level to the PlayerScore of all players
+    public static inline function
+    getScoreAndLevels (archives:Array<PlayerArchive>, players:Array<PlayerScore>): Array<PlayerScoreAndLevel>
+        return players.map(getScoreAndLevel.bind(archives));
 }

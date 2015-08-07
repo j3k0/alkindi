@@ -11,10 +11,6 @@ class F {
     maxScore (s1:Score, s2:Score): Score
         return Std.int(Math.max(s1,s2));
 
-    public static inline function
-    getPlayers (game:Game): Array<PlayerScore>
-        return Maybe.of(game).map(Types.getPlayers).maybe([], Fxp.id);
-
     public static var
     getBestScore: Array<PlayerScore> -> Score
         = Fxp.compose(
@@ -33,17 +29,10 @@ class F {
     getWinners (bestScore:Score, players:Array<PlayerScore>): Array<PlayerWinner>
         return players.map(isWinner.bind(bestScore));
 
-    public static inline function
-    getScoreAndLevel (archives:Array<PlayerArchive>, player:PlayerScore): PlayerScoreAndLevel
-        return {
-            username: player.username,
-            score: player.score,
-            level: Archive.getLevel(archives, player.username)
-        }
 
     public static inline function
-    getScoreAndLevels (archives:Array<PlayerArchive>, players:Array<PlayerScore>): Array<PlayerScoreAndLevel>
-        return players.map(getScoreAndLevel.bind(archives));
+    getPlayers (game:Game): Array<PlayerScore>
+        return Maybe.of(game).map(Types.getPlayers).maybe([], Fxp.id);
 
     public static inline function
     decayedLevel (decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game, player:PlayerScoreAndLevel): PlayerScoreAndLevel
@@ -87,7 +76,7 @@ class F {
             return [];
 
         var players = getPlayers(game).filter(Archive.dontContain.bind(archives, game));
-        var scoreAndLevels = getScoreAndLevels(archives, players);
+        var scoreAndLevels = Archive.getScoreAndLevels(archives, players);
         var decayed = scoreAndLevels.map(decayedLevel.bind(decay, archives, game));
         var updated = decayed.map(updatedLevel.bind(update, decayed));
         return outcomes(game, updated);
