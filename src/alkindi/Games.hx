@@ -33,7 +33,6 @@ class Games {
     getWinners (bestScore:Score, players:Array<PlayerScore>): Array<PlayerWinner>
         return players.map(isWinner.bind(bestScore));
 
-
     // Return all players of a game
     public static inline function
     getPlayers (game:Game): Array<PlayerScore>

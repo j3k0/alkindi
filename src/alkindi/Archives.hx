@@ -39,8 +39,8 @@ class Archives {
 
     // Returns true iff given player's archive isn't found in his archive
     public static inline function
-    dontContain (archives:Array<PlayerArchive>, game:Game, player:PlayerScore): Bool
-        return !forPlayer(archives, player.username)
+    dontContain (archives:Array<PlayerArchive>, game:Game, player:TUsername): Bool
+        return !forPlayer(archives, Types.getUsername(player))
             .maybe(false, contains.bind(_, game));
 
     // Returns the players level from his archive
