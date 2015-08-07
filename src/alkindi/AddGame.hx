@@ -3,6 +3,7 @@ package alkindi;
 import alkindi.Archives;
 import alkindi.Games;
 import alkindi.Levels;
+import alkindi.Types;
 
 using alkindi.Fxp; // thisMap
 using Lambda; // map
@@ -10,7 +11,7 @@ using Lambda; // map
 // Compute the effect of game on players statistics
 class AddGame {
 
-    // Exectute the addGame operation.
+    // Execute the addGame operation.
     //
     // Returns an array of outcomes.
     public static inline function

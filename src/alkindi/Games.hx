@@ -5,7 +5,7 @@ import alkindi.Fxp;
 import alkindi.Types;
 import alkindi.Maybe;
 
-// Extra data from games
+// Extract data from games
 class Games {
     
     // Returns the best of 2 scores
@@ -21,6 +21,11 @@ class Games {
             Lambda.map.bind(_, Types.getScore)
         );
 
+    // Return all players of a game
+    public static inline function
+    getPlayers (game:Game): Array<PlayerScore>
+        return Maybe.of(game).map(Types.getPlayers).maybe([], Fxp.id);
+
     // Returns a player's winning status
     public static inline function
     isWinner (bestScore:Score, player:PlayerScore): PlayerWinner
@@ -33,9 +38,4 @@ class Games {
     public static inline function
     getWinners (bestScore:Score, players:Array<PlayerScore>): Array<PlayerWinner>
         return players.map(isWinner.bind(bestScore));
-
-    // Return all players of a game
-    public static inline function
-    getPlayers (game:Game): Array<PlayerScore>
-        return Maybe.of(game).map(Types.getPlayers).maybe([], Fxp.id);
 }

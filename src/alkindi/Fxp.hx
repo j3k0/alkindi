@@ -14,14 +14,17 @@ class Fxp {
     where<T>(f:T->Bool, a:Array<T>):Maybe<T>
         return Maybe.of(a.find(f));
 
-    public static inline function last<T>(array:Array<T>):Maybe<T>
+    public static inline function
+    last<T>(array:Array<T>):Maybe<T>
         return (array.length > 0
             ? Maybe.of(array[array.length - 1])
             : Maybe.of());
 
-    public static inline function prop<T,U>(field:String, object:T):U
+    public static inline function
+    prop<T,U>(field:String, object:T):U
         return Reflect.field(object, field);
 
-    public static function thisMap<A,B>(it:Array<A>, f:Array<A>->A->B): Array<B>
-		return [for (x in it) f(it, x)];
+    public static inline function
+    thisMap<A,B>(it:Array<A>, f:Array<A>->A->B): Array<B>
+        return [for (x in it) f(it, x)];
 }
