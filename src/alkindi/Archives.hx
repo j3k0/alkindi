@@ -41,7 +41,7 @@ class Archives {
     // Returns true iff given player's archive isn't found in his archive
     public static inline function
     dontContain (archives:Array<PlayerArchive>, game:Game, player:TUsername): Bool
-        return !forPlayer(archives, Types.getUsername(player))
+        return !forPlayer(archives, player.username)
             .maybe(false, contains.bind(_, game));
 
     // Returns the players level from his archive
@@ -50,7 +50,8 @@ class Archives {
         return Maybe.of(archives)
             .chain(lastGame.bind(_, player))
             .map(Types.getOutcome)
-            .maybe(STARTING_LEVEL, Types.getNewLevel);
+            .map(Types.getNewLevel)
+            .maybe(STARTING_LEVEL, Fxp.id);
 
     // Add level to the PlayerScore of a given player
     public static inline function

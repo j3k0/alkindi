@@ -14,7 +14,7 @@ class Levels {
         return {
             username: player.username,
             score: player.score,
-            level: Types.getNewLevel(levelUpdate)
+            level: levelUpdate.newLevel
         }
 
     // Returns the updated level of a single player after decay
