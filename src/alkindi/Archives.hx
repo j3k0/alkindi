@@ -2,6 +2,7 @@ package alkindi;
 
 using Lambda;
 import alkindi.Fxp;
+import alkindi.Maybe;
 import alkindi.Types;
 
 // Extract data from the players archives
@@ -59,9 +60,4 @@ class Archives {
             score: player.score,
             level: getLevel(archives, player.username)
         }
-
-    // Add level to the PlayerScore of all players
-    public static inline function
-    getScoreAndLevels (archives:Array<PlayerArchive>, players:Array<PlayerScore>): Array<PlayerScoreAndLevel>
-        return players.map(getScoreAndLevel.bind(archives));
 }

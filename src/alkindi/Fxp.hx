@@ -1,6 +1,7 @@
 package alkindi;
 
 using Lambda;
+import alkindi.Maybe;
 
 class Fxp {
     public static inline function id<T>(t:T):T return t;
@@ -20,27 +21,7 @@ class Fxp {
 
     public static inline function prop<T,U>(field:String, object:T):U
         return Reflect.field(object, field);
+
+    public static function thisMap<A,B>(it:Array<A>, f:Array<A>->A->B): Array<B>
+		return [for (x in it) f(it, x)];
 }
-
-class Maybe<T> {
-    private var value:T;
-
-    public static inline function of<T>(v:T = null)
-        return new Maybe<T>(v);
-
-    public inline function new(v:T)
-        value = v;
-
-    public inline function isNothing():Bool
-        return value == null;
-
-    public inline function map<U>(f:T->U):Maybe<U>
-        return isNothing() ? Maybe.of() : Maybe.of(f(value));
-
-    public inline function chain<U>(f:T->Maybe<U>):Maybe<U>
-        return isNothing() ? Maybe.of() : f(value);
-
-    public inline function maybe<U>(a:U, f:T->U):U
-        return isNothing() ? a : f(value);
-}
-

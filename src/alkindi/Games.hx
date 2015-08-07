@@ -3,6 +3,7 @@ package alkindi;
 using Lambda;
 import alkindi.Fxp;
 import alkindi.Types;
+import alkindi.Maybe;
 
 // Extra data from games
 class Games {
