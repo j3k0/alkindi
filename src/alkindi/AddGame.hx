@@ -21,10 +21,15 @@ class AddGame {
         return (update == null || decay == null || archives == null || game == null)
             ? []
             : Games.getPlayers(game)
+                // get players' scores and level
                 .map(Archives.getScoreAndLevel.bind(archives))
+                // decay
                 .map(Levels.decay.bind(decay, archives, game))
+                // update
                 .thisMap(Levels.update.bind(update))
+                // filter
                 .filter(Archives.dontContain.bind(archives, game))
+                // return
                 .map(outcome.bind(game));
 
     // Generates the game outcome of a player

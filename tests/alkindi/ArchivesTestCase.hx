@@ -26,7 +26,7 @@ class ArchivesTestCase extends haxe.unit.TestCase {
             .map(Types.getGames)
             .maybe(-1, Reflect.field.bind(_, "length")));
 
-        assertEquals(4,
+        assertEquals(50,
             Archives.lastGame(TestData.archivesSousou1, "sousou")
             .map(Types.getOutcome)
             .map(Types.getNewLevel)
@@ -43,21 +43,22 @@ class ArchivesTestCase extends haxe.unit.TestCase {
     }
 
     public function testContains() {
-        assertTrue(Archives.contains(TestData.archivesSousou1[0], { id: "dummy" }));
+        assertTrue(Archives.contains(TestData.archivesSousou1[0], { id: "mummy" }));
         assertFalse(Archives.contains(TestData.archivesSousou1[0], { id: "none" }));
     }
 
     public function testDontContain() {
         assertFalse(Archives.dontContain(TestData.archivesSousou1,
-                                        { id: "dummy" }, { username: "sousou" }));
+                                        { id: "mummy" }, { username: "sousou" }));
         assertTrue(Archives.dontContain(TestData.archivesSousou1,
                                         { id: "none" }, { username: "sousou" }));
         assertTrue(Archives.dontContain(TestData.archivesSousou1,
-                                        { id: "dummy" }, { username: "jeko" }));
+                                        { id: "mummy" }, { username: "jeko" }));
+        assertTrue(Archives.dontContain(TestData.archivesSousou1, TestData.dummyGame, { username: "sousou" }));
     }
 
     public function testGetLevel() {
-        assertEquals(4, Archives.getLevel(TestData.archivesSousou1, "sousou"));
+        assertEquals(50, Archives.getLevel(TestData.archivesSousou1, "sousou"));
         assertEquals(Archives.STARTING_LEVEL,
                      Archives.getLevel(TestData.archivesSousou1, "jeko"));
     }
@@ -65,9 +66,11 @@ class ArchivesTestCase extends haxe.unit.TestCase {
     public function testGetScoreAndLevel() {
         assertEquals(25, Archives.getScoreAndLevel(TestData.archivesSousou1,
                                                    { username: "sousou", score: 25 }).score);
-        assertEquals(4, Archives.getScoreAndLevel(TestData.archivesSousou1,
+        assertEquals(50, Archives.getScoreAndLevel(TestData.archivesSousou1,
                                                    { username: "sousou", score: 25 }).level);
         assertEquals("sousou", Archives.getScoreAndLevel(TestData.archivesSousou1,
                                                    { username: "sousou", score: 25 }).username);
+        assertEquals(Archives.STARTING_LEVEL, Archives.getScoreAndLevel(TestData.archivesSousou1,
+                                                   { username: "jeko", score: 25 }).level);
     }
 }
