@@ -33,9 +33,4 @@ class Games {
             username: player.username,
             winner: player.score == bestScore
         }
-
-    // Returns all players winning status
-    public static inline function
-    getWinners (bestScore:Score, players:Array<PlayerScore>): Array<PlayerWinner>
-        return players.map(isWinner.bind(bestScore));
 }

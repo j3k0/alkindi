@@ -7,6 +7,14 @@ import alkindi.Fxp;
 
 class GamesTestCase extends haxe.unit.TestCase {
 
+    public function testMaxScore() {
+        // TODO
+    }
+
+    public function testBestScore() {
+        // TODO
+    }
+
     public function testGetPlayers() {
         var game:Game = {
             id: "dummy",
@@ -21,5 +29,9 @@ class GamesTestCase extends haxe.unit.TestCase {
         };
         assertEquals(2,  Games.getPlayers(game).length);
         assertEquals(21, Games.getBestScore(Games.getPlayers(game)));
+    }
+
+    public function testIsWinner() {
+        // TODO
     }
 }

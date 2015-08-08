@@ -46,7 +46,7 @@ class Archives {
 
     // Returns the players level from his archive
     public static inline function
-    getLevel(archives:Array<PlayerArchive>, player:Username): Level
+    getLevel (archives:Array<PlayerArchive>, player:Username): Level
         return Maybe.of(archives)
             .chain(lastGame.bind(_, player))
             .map(Types.getOutcome)

@@ -5,11 +5,14 @@ class Main {
   static function main() {
 
     var r = new haxe.unit.TestRunner();
-    r.add(new AlkindiTestCase());
-    r.add(new ArchivesTestCase());
-    r.add(new GamesTestCase());
+
     r.add(new FxpTestCase());
     r.add(new MaybeTestCase());
+    r.add(new ArchivesTestCase());
+    r.add(new GamesTestCase());
+    r.add(new LevelsTestCase());
+    r.add(new AddGameTestCase());
+    r.add(new AlkindiTestCase());
     // add other TestCases here
 
     // finally, run the tests
