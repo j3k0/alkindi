@@ -11,7 +11,7 @@ class Games {
     // Returns the best of 2 scores
     public static inline function
     maxScore (s1:Score, s2:Score): Score
-        return Std.int(Math.max(s1,s2));
+        return s1 > s2 ? s1 : s2;
 
     // Returns the best of all players' scores
     public static inline function
