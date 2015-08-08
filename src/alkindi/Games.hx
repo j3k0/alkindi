@@ -14,12 +14,9 @@ class Games {
         return Std.int(Math.max(s1,s2));
 
     // Returns the best of all players' scores
-    public static var
-    getBestScore: Array<PlayerScore> -> Score
-        = Fxp.compose(
-            Lambda.fold.bind(_, maxScore, 0),
-            Lambda.map.bind(_, Types.getScore)
-        );
+    public static inline function
+    getBestScore (scores:Iterable<TScore>): Score
+        return scores.map(Types.getScore).fold(maxScore, 0);
 
     // Return all players of a game
     public static inline function

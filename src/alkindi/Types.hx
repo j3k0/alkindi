@@ -1,72 +1,10 @@
 package alkindi;
 
 typedef Score = Int;
-
 typedef Level = Int;
-
 typedef Username = String;
-
 typedef Timestamp = haxe.Int64;
-
-typedef DateValue = {
-    date: Timestamp,
-    value: Int
-}
-
-typedef PlayerStats = {
-    username: Username,
-    victories: Array<DateValue>,
-    defeats: Array<DateValue>,
-    rankings: Array<DateValue>,
-    winningSprees: Array<DateValue>
-}
-
-typedef LevelUpdate = {
-    newLevel: Level
-}
-
-typedef GameOutcome = {
-    game: Game,
-    outcome: LevelUpdate
-}
-
-typedef PlayerGameOutcome = {
-    username: Username,
-    game: GameOutcome
-}
-
-typedef PlayerArchive = {
-    username: Username,
-    games: Array<GameOutcome>
-}
-
-typedef PlayerScoreAndLevel = {
-    username: Username,
-    score: Score,
-    level: Level
-}
-
-typedef LevelUpdateFunction =
-    Array<PlayerScoreAndLevel> -> Username -> LevelUpdate;
-
-typedef LevelDecayFunction =
-    Timestamp -> Timestamp -> Level -> LevelUpdate;
-
-typedef PlayerScore = {
-    username: Username,
-    score: Score
-}
-
-typedef PlayerWinner = {
-    username: Username,
-    winner: Bool
-}
-
-typedef Game = {
-    id: Username,
-    date: Timestamp,
-    players: Array<PlayerScore>
-}
+typedef GameId = String;
 
 typedef TDate = { date: Timestamp }
 typedef TGame<T> = { game: T }
@@ -76,6 +14,8 @@ typedef TOutcome<T> = { outcome: T }
 typedef TPlayers<T> = { players: T }
 typedef TScore = { score: Score }
 typedef TUsername = { username: Username }
+typedef TLevel = { level: Level }
+typedef TGameId = { id: GameId }
 
 class Types {
     public static inline function getDate(x:TDate) return x.date;
@@ -85,6 +25,67 @@ class Types {
     public static inline function getOutcome<T>(x:TOutcome<T>) return x.outcome;
     public static inline function getPlayers<T>(x:TPlayers<T>) return x.players;
     public static inline function getScore(x:TScore) return x.score;
+    public static inline function getLevel(x:TLevel) return x.level;
     public static inline function getUsername(x:TUsername) return x.username;
 }
 
+typedef DateValue = {
+    > TDate,
+    value: Int
+}
+
+typedef PlayerStats = {
+    > TUsername,
+    victories: Array<DateValue>,
+    defeats: Array<DateValue>,
+    rankings: Array<DateValue>,
+    winningSprees: Array<DateValue>
+}
+
+typedef LevelUpdate = TNewLevel;
+
+typedef Game = {
+    > TDate,
+    > TGameId,
+    players: Array<PlayerScore>
+}
+
+typedef GameOutcome = {
+    > TGame<Game>,
+    > TOutcome<LevelUpdate>,
+}
+
+typedef PlayerGameOutcome = {
+    > TUsername,
+    > TGame<GameOutcome>,
+}
+
+typedef PlayerArchive = {
+    > TUsername,
+    > TGames<Array<GameOutcome>>,
+}
+
+typedef PlayerScore = {
+    > TUsername,
+    > TScore,
+}
+
+typedef PlayerScoreAndLevel = {
+    > PlayerScore,
+    > TLevel,
+}
+
+typedef PlayerWinner = {
+    > TUsername,
+    winner: Bool
+}
+
+// Define how Level updates while playing
+typedef LevelUpdateFunction =
+    Array<PlayerScoreAndLevel> -> Username -> LevelUpdate;
+
+// Define how Level decays while not playing
+// Player's level will decay from start date to end date,
+// from given Level to the returned LevelUpdate.
+typedef LevelDecayFunction =
+    Timestamp -> Timestamp -> Level -> LevelUpdate;

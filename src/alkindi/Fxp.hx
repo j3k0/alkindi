@@ -11,7 +11,7 @@ class Fxp {
         return function(v:A) return f(g(v));
 
     public static inline function
-    where<T>(f:T->Bool, a:Array<T>):Maybe<T>
+    where<T>(f:T->Bool, a:Iterable<T>):Maybe<T>
         return Maybe.of(a.find(f));
 
     public static inline function

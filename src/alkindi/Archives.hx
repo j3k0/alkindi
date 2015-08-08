@@ -11,15 +11,26 @@ class Archives {
     // Level for a player that never played any game
     public static inline var STARTING_LEVEL:Level = 0;
 
+    public static inline function
+    equalUsers (username:Username, user:PlayerArchive):Bool
+        return user.username == username;
+
     // Find the archive of a given user
     public static inline function
-    forPlayer (array:Array<PlayerArchive>, player:Username): Maybe<PlayerArchive>
-        return Fxp.where(function(archive:PlayerArchive) {
-            return archive.username == player;
-        }, array);
+    forPlayer (array:Iterable<PlayerArchive>, player:Username): Maybe<PlayerArchive>
+        return Fxp.where(equalUsers.bind(player), array);
+
+    public static inline function
+    equalUsersSL (username:Username, user:PlayerScoreAndLevel):Bool
+        return user.username == username;
+
+    // Find the PlayerScoreAndLevel from a given username
+    public static inline function
+    forPlayerSL (array:Iterable<PlayerScoreAndLevel>, player:Username): Maybe<PlayerScoreAndLevel>
+        return Fxp.where(equalUsersSL.bind(player), array);
 
     // Find the last game of a given player
-    public static inline function
+    public static function
     lastGame (array:Array<PlayerArchive>, player:Username): Maybe<GameOutcome>
         return forPlayer(array, player)
             .map(Types.getGames)
@@ -32,7 +43,7 @@ class Archives {
 
     // Returns true iff player's archive already contains the given game
     public static inline function
-    contains (archive:PlayerArchive, game:Game):Bool
+    contains (archive:PlayerArchive, game:TGameId):Bool
         return (archive.games != null &&
             archive.games.find(function(outcome:GameOutcome) {
                 return outcome.game.id == game.id;
@@ -40,7 +51,7 @@ class Archives {
 
     // Returns true iff given player's archive isn't found in his archive
     public static inline function
-    dontContain (archives:Array<PlayerArchive>, game:Game, player:TUsername): Bool
+    dontContain (archives:Array<PlayerArchive>, game:TGameId, player:TUsername): Bool
         return !forPlayer(archives, player.username)
             .maybe(false, contains.bind(_, game));
 
