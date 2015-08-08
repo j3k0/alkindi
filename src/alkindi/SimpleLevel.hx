@@ -3,12 +3,17 @@ package alkindi;
 using Lambda;
 import alkindi.Fxp;
 import alkindi.Types;
+import haxe.Int64;
 
 class SimpleLevel
 {
+    public static inline var WIN_POINTS = 30;
+    public static inline var LOSE_POINTS = 7;
+    public static inline var DECAY_INTERVAL = 3600 * 24;
+
     public static inline function
     newLevel (level:Level, player:PlayerWinner): LevelUpdate
-        return { newLevel: level + (player.winner ? 30 : 7) };
+        return { newLevel: level + (player.winner ? WIN_POINTS : LOSE_POINTS) };
 
     public static inline function
     maybeNewLevel (level:Maybe<Level>, player:PlayerWinner): Maybe<LevelUpdate>
@@ -32,6 +37,9 @@ class SimpleLevel
 
     // Level decreases 1 point per day, but won't go below 0.
     public static function
-    decay (then:Date, now:Date, level:Level): LevelUpdate
-        return { newLevel: 0 }
+    decay (then:Timestamp, now:Timestamp, level:Level): LevelUpdate
+        return {
+            newLevel: level +
+                Std.int((Int64.toInt(then) - Int64.toInt(now)) / DECAY_INTERVAL)
+        }
 }

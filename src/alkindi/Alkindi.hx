@@ -35,7 +35,7 @@ class Alkindi {
 
     // Level decreases 1 point per day, but won't go below 0.
     public static function
-    simpleLevelDecay (then:Date, now:Date, level:Level): LevelUpdate
+    simpleLevelDecay (then:Timestamp, now:Timestamp, level:Level): LevelUpdate
         return SimpleLevel.decay(then, now, level);
 
     /*

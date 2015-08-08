@@ -1,8 +1,7 @@
 package alkindi;
 
+import haxe.Int64;
 import alkindi.Types;
-import alkindi.AddGame;
-import alkindi.Fxp;
 import alkindi.Maybe;
 import alkindi.TestData;
 
@@ -32,6 +31,6 @@ class SimpleLevelTestCase extends haxe.unit.TestCase {
     }
 
     public function testDecay() {
-        // TODO
+        assertEquals(99, SimpleLevel.decay(Int64.ofInt(0), Int64.ofInt(3600 * 24 + 1), 100).newLevel);
     }
 }
