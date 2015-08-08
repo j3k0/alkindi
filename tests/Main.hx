@@ -9,6 +9,7 @@ class Main {
     r.add(new ArchivesTestCase());
     r.add(new GamesTestCase());
     r.add(new FxpTestCase());
+    r.add(new MaybeTestCase());
     // add other TestCases here
 
     // finally, run the tests

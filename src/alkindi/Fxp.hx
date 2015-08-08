@@ -21,10 +21,6 @@ class Fxp {
             : Maybe.of());
 
     public static inline function
-    prop<T,U>(field:String, object:T):U
-        return Reflect.field(object, field);
-
-    public static inline function
     thisMap<A,B>(it:Array<A>, f:Array<A>->A->B): Array<B>
         return [for (x in it) f(it, x)];
 }

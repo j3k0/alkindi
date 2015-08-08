@@ -12,12 +12,12 @@ class Maybe<T> {
     public inline function isNothing():Bool
         return value == null;
 
+    public inline function maybe<U>(a:U, f:T->U):U
+        return isNothing() ? a : f(value);
+
     public inline function map<U>(f:T->U):Maybe<U>
         return isNothing() ? Maybe.of() : Maybe.of(f(value));
 
     public inline function chain<U>(f:T->Maybe<U>):Maybe<U>
         return isNothing() ? Maybe.of() : f(value);
-
-    public inline function maybe<U>(a:U, f:T->U):U
-        return isNothing() ? a : f(value);
 }
