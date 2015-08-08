@@ -10,7 +10,7 @@ class SimpleLevel
     newLevel (level:Level, player:PlayerWinner): LevelUpdate
         return { newLevel: level + (player.winner ? 30 : 7) };
 
-    public static function
+    public static inline function
     maybeNewLevel (level:Maybe<Level>, player:PlayerWinner): Maybe<LevelUpdate>
         return level.map(newLevel.bind(_, player));
 
@@ -31,7 +31,7 @@ class SimpleLevel
     }
 
     // Level decreases 1 point per day, but won't go below 0.
-    public static inline function
+    public static function
     decay (then:Date, now:Date, level:Level): LevelUpdate
         return { newLevel: 0 }
 }

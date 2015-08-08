@@ -13,6 +13,7 @@ class Main {
     r.add(new LevelsTestCase());
     r.add(new AddGameTestCase());
     r.add(new AlkindiTestCase());
+    r.add(new SimpleLevelTestCase());
     // add other TestCases here
 
     // finally, run the tests
