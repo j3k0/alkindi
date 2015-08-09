@@ -1,8 +1,9 @@
 package alkindi;
 
+import alkindi.Types;
 import alkindi.AddGame;
 import alkindi.SimpleLevel;
-import alkindi.Types;
+import alkindi.Stats;
 
 @:expose
 class Alkindi {
@@ -38,8 +39,11 @@ class Alkindi {
     simpleLevelDecay (then:Timestamp, now:Timestamp, level:Level): LevelUpdate
         return SimpleLevel.decay(then, now, level);
 
+    public static function
+    getPlayerStats (archive:PlayerArchive): PlayerStats
+        return Stats.execute(archive);
+
     /*
-    public static function getPlayerStats(archive:PlayerArchive):PlayerStats {
         var games = archive.games;
 
         var victories : Array<DateValue> = [];

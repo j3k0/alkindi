@@ -40,6 +40,32 @@ class TestData {
         }]
     };
 
+    public static var complexArchive:PlayerArchive = {
+        username: "sousou",
+        games: [{
+            outcome: { newLevel: 30 },
+            game: {
+                date: 1981,
+                id: "mummy1",
+                players: [{ username:"jeko", score:20 }, { username:"sousou", score:20 }]
+            }
+        }, {
+            outcome: { newLevel: 37 },
+            game: {
+                date: 1990,
+                id: "mummy2",
+                players: [{ username:"jeko", score:51 }, { username:"sousou", score:20 }]
+            }
+        }, {
+            outcome: { newLevel: 67 },
+            game: {
+                date: 2004,
+                id: "mummy3",
+                players: [{ username:"jeko", score:11 }, { username:"sousou", score:20 }]
+            }
+        }]
+    };
+
     public static function myDecay(d0:Timestamp, d1:Timestamp, l:Level): LevelUpdate
         return { newLevel: l + Std.int(d0 - d1) }
 

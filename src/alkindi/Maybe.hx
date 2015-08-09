@@ -1,10 +1,17 @@
 package alkindi;
 
+import alkindi.Fxp;
+
 class Maybe<T> {
     private var value:T;
 
-    public static inline function of<T>(v:T = null)
+    public static inline function
+    of<T> (v:T = null)
         return new Maybe<T>(v);
+
+    public static inline function
+    arrayOf<T> (a:Array<T>): Array<Maybe<T>>
+        return a.map(Maybe.of);
 
     public inline function new(v:T)
         value = v;

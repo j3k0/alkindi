@@ -11,8 +11,17 @@ class Archives {
     // Level for a player that never played any game
     public static inline var STARTING_LEVEL:Level = 0;
 
+    // TODO: How to unify that?
     public static inline function
     equalUsers (username:Username, user:PlayerArchive):Bool
+        return user.username == username;
+
+    public static inline function
+    equalUsersS (username:Username, user:PlayerScore):Bool
+        return user.username == username;
+
+    public static inline function
+    equalUsersSL (username:Username, user:PlayerScoreAndLevel):Bool
         return user.username == username;
 
     // Find the archive of a given user
@@ -20,9 +29,10 @@ class Archives {
     forPlayer (array:Iterable<PlayerArchive>, player:Username): Maybe<PlayerArchive>
         return Fxp.where(equalUsers.bind(player), array);
 
+    // Find the PlayerScore from a given username
     public static inline function
-    equalUsersSL (username:Username, user:PlayerScoreAndLevel):Bool
-        return user.username == username;
+    forPlayerS (array:Iterable<PlayerScore>, player:Username): Maybe<PlayerScore>
+        return Fxp.where(equalUsersS.bind(player), array);
 
     // Find the PlayerScoreAndLevel from a given username
     public static inline function

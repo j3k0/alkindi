@@ -16,6 +16,7 @@ typedef TScore = { score: Score }
 typedef TUsername = { username: Username }
 typedef TLevel = { level: Level }
 typedef TGameId = { id: GameId }
+typedef TWinner = { winner: Bool }
 
 class Types {
     public static inline function getDate(x:TDate) return x.date;
@@ -27,6 +28,7 @@ class Types {
     public static inline function getScore(x:TScore) return x.score;
     public static inline function getLevel(x:TLevel) return x.level;
     public static inline function getUsername(x:TUsername) return x.username;
+    public static inline function getWinner(x:TWinner) return x.winner;
 }
 
 typedef DateValue = {
@@ -38,7 +40,7 @@ typedef PlayerStats = {
     > TUsername,
     victories: Array<DateValue>,
     defeats: Array<DateValue>,
-    rankings: Array<DateValue>,
+    levels: Array<DateValue>,
     winningSprees: Array<DateValue>
 }
 
@@ -77,7 +79,7 @@ typedef PlayerScoreAndLevel = {
 
 typedef PlayerWinner = {
     > TUsername,
-    winner: Bool
+    > TWinner,
 }
 
 // Define how Level updates while playing
