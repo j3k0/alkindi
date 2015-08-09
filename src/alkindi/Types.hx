@@ -36,12 +36,14 @@ typedef DateValue = {
     value: Int
 }
 
+typedef DateValues = Array<DateValue>;
+
 typedef PlayerStats = {
     > TUsername,
-    victories: Array<DateValue>,
-    defeats: Array<DateValue>,
-    levels: Array<DateValue>,
-    winningSprees: Array<DateValue>
+    victories: DateValues,
+    defeats: DateValues,
+    levels: DateValues,
+    winningSprees: DateValues
 }
 
 typedef LevelUpdate = TNewLevel;
