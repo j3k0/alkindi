@@ -3,6 +3,9 @@ package alkindi;
 using Lambda;
 import alkindi.Maybe;
 
+import haxe.macro.Expr;
+import haxe.macro.Context;
+
 class Fxp {
     public static inline function id<T>(t:T):T return t;
 
@@ -23,4 +26,15 @@ class Fxp {
     public static inline function
     thisMap<A,B>(it:Array<A>, f:Array<A>->A->B): Array<B>
         return [for (x in it) f(it, x)];
+
+    public static macro function
+    arity (f:Expr):ExprOf<Null<Int>> {
+        var fType = Context.typeof(f);
+        if (Reflect.hasField(fType, 'args')) {
+            var fArgs:Array<Dynamic> = Reflect.field(fType, 'args');
+            return macro $v{fArgs[0].length};
+        } else {
+            return macro null;
+        }
+    }
 }

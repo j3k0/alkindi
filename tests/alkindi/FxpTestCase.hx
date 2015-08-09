@@ -1,6 +1,6 @@
 package alkindi;
 
-import alkindi.Fxp;
+using alkindi.Fxp;
 
 class FxpTestCase extends haxe.unit.TestCase {
 
@@ -28,5 +28,13 @@ class FxpTestCase extends haxe.unit.TestCase {
         assertEquals(4, res[0]);
         assertEquals(5, res[1]);
         assertEquals(6, res[2]);
+        var dotNot = [1,2,3].thisMap(function(a:Array<Int>, x:Int) { return a.length + x; } );
+        assertEquals(4, res[0]);
+    }
+
+    public function testArity() {
+        assertEquals(0, testArity.arity());
+        assertEquals(1, Fxp.id.arity());
+        assertEquals(2, Fxp.compose.arity());
     }
 }
