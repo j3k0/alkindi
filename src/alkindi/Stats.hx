@@ -4,6 +4,7 @@ using alkindi.Fxp;
 import alkindi.Maybe;
 import alkindi.Types;
 import alkindi.Games;
+import haxe.ds.StringMap;
 
 class Stats {
 
@@ -98,13 +99,25 @@ class Stats {
     public static inline function
     games (archive:PlayerArchive): Array<GameOutcome>
         return Maybe.of(archive).map(Types.getGames).maybe([], Fxp.id);
-        
+
     // Safely return true if the game was a victory for the player
     public static inline function
-    isVictory (username:Username, gameO:GameOutcome): Bool
+    _isVictory (username:Username, gameO:GameOutcome): Bool
         return Maybe.of(gameO)
             .map(Types.getGame)
             .maybe(false, isGameVictory.bind(username));
+
+    public static var isVictoryMemo = new StringMap<Bool>();
+    public static inline function
+    isVictory (username:Username, gameO:GameOutcome): Bool {
+        var key = username + " " + gameO.game.id;
+        var memo = isVictoryMemo.get(key);
+        if (memo == null) {
+            memo = _isVictory(username, gameO);
+            isVictoryMemo.set(key, memo);
+        }
+        return memo;
+    }
 
     // Return true if the game was a victory for the player
     public static inline function
