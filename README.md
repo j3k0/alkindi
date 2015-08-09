@@ -12,7 +12,17 @@ This API solves generic issues with handling game statitics.
 
 ## API
 
-`package alkindi`
+### Import the package
+
+#### Javascript
+```js
+var alkindi = require("alkindi");
+```
+
+#### Actionscript
+```actionscript
+import alkindi.Alkindi;
+```
 
 ### Types
 

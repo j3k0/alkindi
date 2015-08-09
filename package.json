@@ -1,0 +1,24 @@
+{
+  "name": "alkindi",
+  "version": "1.0.0",
+  "description": "Alkindi game statistics library",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j3k0/alkindi.git"
+  },
+  "keywords": [
+    "game",
+    "as3",
+    "actionscript",
+    "node"
+  ],
+  "author": "Jean-Christophe Hoelt <hoelt@fovea.cc>",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/j3k0/alkindi/issues"
+  },
+  "homepage": "https://github.com/j3k0/alkindi"
+}
