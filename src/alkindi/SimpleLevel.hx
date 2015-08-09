@@ -3,7 +3,6 @@ package alkindi;
 using Lambda;
 import alkindi.Fxp;
 import alkindi.Types;
-import haxe.Int64;
 
 class SimpleLevel
 {
@@ -40,6 +39,6 @@ class SimpleLevel
     decay (then:Timestamp, now:Timestamp, level:Level): LevelUpdate
         return {
             newLevel: level +
-                Std.int((Int64.toInt(then) - Int64.toInt(now)) / DECAY_INTERVAL)
+                Std.int((then - now) / DECAY_INTERVAL)
         }
 }

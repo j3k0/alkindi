@@ -46,8 +46,8 @@ Usage from actionscript.
 var outcomes:Array = Alkindi.addGame(myUpdate, myDecay, archives, game);
 ```
 
-See also: [LevelDecayFunction](#LevelDecayFunction), [LevelUpdateFunction](#LevelUpdateFunction), [PlayerArchive](#PlayerArchive), [Game](#Game),
-[PlayerGameOutcome](#PlayerGameOutcome)
+See also: [LevelDecayFunction](#leveldecayfunction), [LevelUpdateFunction](#levelupdatefunction), [PlayerArchive](#playerarchive), [Game](#game),
+[PlayerGameOutcome](#playergameoutcome)
 
 ### Level functions
 
@@ -77,7 +77,7 @@ function myUpdate(players:Array, username:String):Object {
 }
 ```
 
-See also: [PlayerScoreAndLevel](#PlayerScoreAndLevel), [LevelUpdate](#LevelUpdate)
+See also: [PlayerScoreAndLevel](#playerscoreandlevel), [LevelUpdate](#levelupdate)
 
 #### LevelDecayFunction
 
@@ -104,6 +104,8 @@ function myDecay(t0:Number, t1:Number, level:int):int {
     return { newLevel: Math.round(level - (t1 - t0) / 3600) }
 }
 ```
+
+See also: [LevelUpdate](#levelupdate)
 
 #### LevelUpdate
 
@@ -154,7 +156,7 @@ var outcomes:Array = Alkindi.addGame(myUpdate, Alkindi.simpleLevelDecay, archive
 typedef Score = Int;
 typedef Level = Int;
 typedef Username = String;
-typedef Timestamp = haxe.Int64;
+typedef Timestamp = Float;
 typedef GameId = String;
 ```
 
@@ -169,7 +171,7 @@ typedef PlayerArchive = {
 }
 ```
 
-See also: [GameOutcome](#GameOutcome)
+See also: [GameOutcome](#gameoutcome)
 
 #### GameOutcome
 
@@ -180,7 +182,7 @@ typedef GameOutcome = {
 }
 ```
 
-See also: [LevelUpdate](#LevelUpdate), [Game](#Game)
+See also: [LevelUpdate](#levelupdate), [Game](#game)
 
 ### Games and players
 

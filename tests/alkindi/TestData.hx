@@ -2,7 +2,6 @@ package alkindi;
 
 import alkindi.Types;
 import alkindi.Archives;
-import haxe.Int64;
 
 class TestData {
 
@@ -19,7 +18,7 @@ class TestData {
         games: [{
             outcome: { newLevel: 50 },
             game: {
-                date: Int64.ofInt(1981),
+                date: 1981,
                 id: "mummy",
                 players: []
             }
@@ -31,7 +30,7 @@ class TestData {
 
     public static var dummyGame:Game = {
         id: "dummy",
-        date: Int64.ofInt(1991),
+        date: 1991,
         players: [{
             username: "jeko",
             score: 21
@@ -42,7 +41,7 @@ class TestData {
     };
 
     public static function myDecay(d0:Timestamp, d1:Timestamp, l:Level): LevelUpdate
-        return { newLevel: l + (Int64.toInt(d0) - Int64.toInt(d1)) }
+        return { newLevel: l + Std.int(d0 - d1) }
 
     public static function myUpdate(players:Array<PlayerScoreAndLevel>, username:Username): LevelUpdate
         return { newLevel: Archives.forPlayerSL(players, username).maybe(Archives.STARTING_LEVEL, Types.getLevel) + 100 }

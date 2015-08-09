@@ -3,7 +3,6 @@ package alkindi;
 import alkindi.Types;
 import alkindi.Levels;
 import alkindi.Fxp;
-import haxe.Int64;
 
 class LevelsTestCase extends haxe.unit.TestCase {
 

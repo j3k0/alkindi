@@ -3,7 +3,7 @@ package alkindi;
 typedef Score = Int;
 typedef Level = Int;
 typedef Username = String;
-typedef Timestamp = haxe.Int64;
+typedef Timestamp = Float;
 typedef GameId = String;
 
 typedef TDate = { date: Timestamp }

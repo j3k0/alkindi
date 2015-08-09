@@ -1,6 +1,5 @@
 package alkindi;
 
-import haxe.Int64;
 import alkindi.Types;
 import alkindi.Games;
 import alkindi.Fxp;

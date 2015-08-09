@@ -1,6 +1,5 @@
 package alkindi;
 
-import haxe.Int64;
 import alkindi.Types;
 import alkindi.Archives;
 import alkindi.Fxp;
@@ -34,12 +33,12 @@ class ArchivesTestCase extends haxe.unit.TestCase {
     }
 
     public function testLastGameDate() {
-        assertEquals(1981,
+        assertEquals(1981.,
             Archives.lastGameDate(TestData.archivesSousou1, "sousou")
-            .maybe(0, Int64.toInt));
-        assertEquals(0,
+            .maybe(0., Fxp.id));
+        assertEquals(0.,
             Archives.lastGameDate(TestData.archivesSousou1, "jeko")
-            .maybe(0, Int64.toInt));
+            .maybe(0., Fxp.id));
     }
 
     public function testContains() {
