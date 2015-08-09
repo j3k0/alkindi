@@ -14,7 +14,23 @@ class Stats {
             victories: victories(archive),
             defeats: defeats(archive),
             levels: levels(archive),
-            winningSprees: []
+            winningSprees: winningSprees(archive)
+        };
+
+    // Returns the number of victories over time
+    public static inline function
+    winningSprees (archive:PlayerArchive): Array<DateValue>
+        return games(archive)
+            .waterfall(spreeCounter.bind(archive.username), { date: 0., value: 0 })
+            .filter(hasPositiveDateAndValue);
+
+    // Returns game date and a counter increasing with each victory,
+    // reset on defeats (meant to be used with Fxp.waterfall)
+    public static inline function
+    spreeCounter (username:Username, prev:DateValue, go:GameOutcome): DateValue
+        return {
+            date: getGameDate(go),
+            value: isVictory(username, go) ? prev.value + 1 : 0
         };
 
     // Returns the number of victories over time
@@ -22,14 +38,16 @@ class Stats {
     victories (archive:PlayerArchive): Array<DateValue>
         return games(archive)
             .filter(isVictory.bind(archive.username))
-            .waterfall(gameCounter, { date: 0., value: 0 });
+            .waterfall(gameCounter, { date: 0., value: 0 })
+            .filter(hasPositiveDateAndValue);
 
     // Returns the number of defeats over time
     public static inline function
     defeats (archive:PlayerArchive): Array<DateValue>
         return games(archive)
             .filter(Fxp.not(isVictory.bind(archive.username)))
-            .waterfall(gameCounter, { date: 0., value: 0 });
+            .waterfall(gameCounter, { date: 0., value: 0 })
+            .filter(hasPositiveDateAndValue);
 
     // Returns the evolution of level over time
     public static inline function
@@ -72,7 +90,7 @@ class Stats {
     public static inline function
     gameCounter (prev:DateValue, go:GameOutcome): DateValue
         return {
-            date: go.game.date,
+            date: getGameDate(go),
             value: prev.value + 1
         };
 
