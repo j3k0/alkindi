@@ -1,10 +1,9 @@
 {
   "name": "alkindi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Alkindi game statistics library",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/j3k0/alkindi.git"
