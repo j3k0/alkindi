@@ -2,6 +2,8 @@
 
 Statistics module for haxe. Generates AS3 and JS.
 
+http://documentup.com/j3k0/alkindi
+
 ## Summary
 
 This API solves generic issues with handling game statitics.
@@ -10,7 +12,9 @@ This API solves generic issues with handling game statitics.
  * Longuest / current winning spree (number of succecutive victories)
  * User leveling
 
-## Import the package
+## API
+
+### Import/require the package
 
 From javascript.
 ```js
@@ -46,7 +50,7 @@ var outcomes:Array = Alkindi.addGame(myUpdate, myDecay, archives, game);
 See also: [LevelDecayFunction](#leveldecayfunction), [LevelUpdateFunction](#levelupdatefunction), [PlayerArchive](#playerarchive), [Game](#game),
 [PlayerGameOutcome](#playergameoutcome)
 
-### getPlayerStats
+### getPlayerStats()
 
 Compute a player' statistics from her archive of games.
 
@@ -186,7 +190,7 @@ typedef GameId = String;
 
 ```haxe
 typedef PlayerArchive = {
-    username: String
+    username: String,
     games: Array<GameOutcome>
 }
 ```
