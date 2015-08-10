@@ -28,26 +28,48 @@ import alkindi.Alkindi;
 
 Add a game to player's stats. This function actually doesn't change any object. It just takes an initial state, do some computation and return the list changes to perform (refered to as "outcome").
 
-Abstract definition.
-
+Definition:
 ```haxe
 addGame: LevelUpdateFunction -> LevelDecayFunction -> Array<PlayerArchive> -> Game -> Array<PlayerGameOutcome>
 ```
 
 Note: if the added game is already in the player archive: outcome will be an empty array.
 
-Usage from javascript.
+Usage from javascript:
 ```js
 var outcomes = alkindi.addGame(myUpdate, myDecay, archives, game);
 ```
 
-Usage from actionscript.
+Usage from actionscript:
 ```actionscript
 var outcomes:Array = Alkindi.addGame(myUpdate, myDecay, archives, game);
 ```
 
 See also: [LevelDecayFunction](#leveldecayfunction), [LevelUpdateFunction](#levelupdatefunction), [PlayerArchive](#playerarchive), [Game](#game),
 [PlayerGameOutcome](#playergameoutcome)
+
+#### getPlayerStats
+
+Compute a player' statistics from her archive of games.
+
+Statistics include `victories`, `defeats`, `levels`, `winningSprees`. Each of those elements are arrays of `DateValue` (timestamp + value).
+
+Definition:
+```haxe
+archive: PlayerArchive -> PlayerStats
+```
+
+Usage from javascript:
+```js
+var stats = alkindi.getPlayerStats(archives);
+```
+
+Usage from actionscript:
+```actionscript
+var stats:Object = Alkindi.getPlayerStats(archives);
+```
+
+See also: [PlayerArchive](#playerarchive), [PlayerStats](#playerstats), [DateValue](#datevalue)
 
 ### Level functions
 
@@ -212,6 +234,37 @@ typedef PlayerScoreAndLevel = {
     username: String,
     score: Int,
     level: Int
+}
+```
+
+### Statistics
+
+#### PlayerStats
+
+```haxe
+typedef PlayerStats = {
+    username: String,
+    victories: Array<DateValue>,
+    defeats: Array<DateValue>,
+    levels: Array<DateValue>,
+    winningSprees: Array<DateValue>
+}
+```
+
+`victories`: Number of victories over time.
+
+`defeats`: Number of defeats over time.
+
+`levels`: Player level over time.
+
+`winningSprees`: Succecutive victories over time.
+
+#### DateValue
+
+```haxe
+typedef DateValue = {
+    date: Timestamp,
+    value: Int
 }
 ```
 

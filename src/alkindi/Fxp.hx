@@ -37,11 +37,13 @@ class Fxp {
             return (initial = fn(initial, x));
         });
 
+    // Return the negation of function f
     public static inline function
     not<T> (f:T->Bool): T->Bool
         return function(x:T)
             return !f(x);
 
+    // Return the arity of a function
     public static macro function
     arity (f:Expr):ExprOf<Null<Int>> {
         var fType = Context.typeof(f);

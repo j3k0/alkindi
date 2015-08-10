@@ -8,6 +8,7 @@ import haxe.ds.StringMap;
 
 class Stats {
 
+    // Compute a player' statistics from her archive of games
     public static inline function
     execute (archive:PlayerArchive): PlayerStats
         return {

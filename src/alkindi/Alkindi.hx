@@ -17,15 +17,6 @@ class Alkindi {
     addGame (update:LevelUpdateFunction, decay:LevelDecayFunction, archives:Array<PlayerArchive>, game:Game): Array<PlayerGameOutcome>
         return AddGame.execute(update, decay, archives, game);
 
-    static function emptyLevelUpdate() return { newLevel: 0 };
-    static function emptyPlayerStats() return {
-        username: "",
-        victories: [],
-        defeats: [],
-        rankings: [],
-        winningSprees: []
-    };
-
     // This level function will increase `level` by:
     //
     // * `30` points for the player(s) with the best score
@@ -39,27 +30,8 @@ class Alkindi {
     simpleLevelDecay (then:Timestamp, now:Timestamp, level:Level): LevelUpdate
         return SimpleLevel.decay(then, now, level);
 
+    // Compute a player' statistics from her archive of games
     public static function
     getPlayerStats (archive:PlayerArchive): PlayerStats
         return Stats.execute(archive);
-
-    /*
-        var games = archive.games;
-
-        var victories : Array<DateValue> = [];
-        var defeats : Array<DateValue> = [];
-        var rankings : Array<DateValue> = [];
-        var winningSprees : Array<DateValue> = [];
-
-        var stats : PlayerStats =
-            { username: archive.username
-            , victories: victories
-            , defeats: defeats
-            , rankings: rankings
-            , winningSprees: winningSprees
-            };
-
-        return stats;
-    }
-    */
 }
