@@ -239,6 +239,17 @@ typedef PlayerScoreAndLevel = {
 }
 ```
 
+### PlayerGameOutcome
+
+```haxe
+typedef PlayerGameOutcome = {
+    username: String,
+    game: GameOutcome,
+}
+```
+
+See also: [GameOutcome](#gameoutcome)
+
 ## Statistics
 
 ### PlayerStats
