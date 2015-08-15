@@ -54,4 +54,12 @@ class FxpTestCase extends haxe.unit.TestCase {
         assertEquals(1, Fxp.id.arity());
         assertEquals(2, Fxp.compose.arity());
     }
+
+    public function testIntersect() {
+        assertEquals(2, Fxp.intersect(["ab", "cd", "ef"], ["ef", "ee", "ab", "ww"]).length);
+        assertEquals(0, Fxp.intersect(["ax", "cx", "ex"], ["ef", "ee", "ab", "ww"]).length);
+        assertEquals(0, Fxp.intersect([], ["ef", "ee", "ab", "ww"]).length);
+        assertEquals(0, Fxp.intersect(["ef", "ee", "ab", "ww"], []).length);
+        assertEquals(2, Fxp.intersect(["1", "2"], ["2", "1"]).length);
+    }
 }

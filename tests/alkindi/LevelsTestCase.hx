@@ -25,7 +25,7 @@ class LevelsTestCase extends haxe.unit.TestCase {
     public function testUpdate() {
         var jeko = { username: "jeko", score: 21, level: 10 }; 
         var sousou = { username: "sousou", score: 11, level: 100 };
-        assertEquals(200, Levels.update(TestData.myUpdate, [sousou, jeko], sousou).level);
+        assertEquals(200, Levels.update(TestData.myUpdate, [], [sousou, jeko], sousou).level);
     }
 }
 

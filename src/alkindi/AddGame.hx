@@ -26,7 +26,7 @@ class AddGame {
                 // decay
                 .map(Levels.decay.bind(decay, archives, game))
                 // update
-                .thisMap(Levels.update.bind(update))
+                .thisMap(Levels.update.bind(update, archives))
                 // filter
                 .filter(Archives.dontContain.bind(archives, game))
                 // return

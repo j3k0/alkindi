@@ -18,6 +18,14 @@ class GamesTestCase extends haxe.unit.TestCase {
         ]));
     }
 
+    public function testBestLevel() {
+        assertEquals(3, Games.getBestLevel([
+            { level: 1 },
+            { level: 3 },
+            { level: 2 }
+        ]));
+    }
+
     public function testGetPlayers() {
         assertEquals(2,  Games.getPlayers(TestData.dummyGame).length);
         assertEquals(21, Games.getBestScore(Games.getPlayers(TestData.dummyGame)));

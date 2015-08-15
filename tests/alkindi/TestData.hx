@@ -69,6 +69,6 @@ class TestData {
     public static function myDecay(d0:Timestamp, d1:Timestamp, l:Level): LevelUpdate
         return { newLevel: l + Std.int(d0 - d1) }
 
-    public static function myUpdate(players:Array<PlayerScoreAndLevel>, username:Username): LevelUpdate
+    public static function myUpdate(players:Array<PlayerScoreAndLevel>, archives:Array<PlayerArchive>, username:Username): LevelUpdate
         return { newLevel: Archives.forPlayerSL(players, username).maybe(Archives.STARTING_LEVEL, Types.getLevel) + 100 }
 }

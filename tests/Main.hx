@@ -14,6 +14,7 @@ class Main {
     r.add(new AddGameTestCase());
     r.add(new AlkindiTestCase());
     r.add(new SimpleLevelTestCase());
+    r.add(new RelativeLevelTestCase());
     r.add(new StatsTestCase());
     // add other TestCases here
 

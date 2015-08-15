@@ -27,6 +27,6 @@ class Levels {
 
     // Returns the updated level of a single player after accounting his result in a game.
     public static inline function
-    update (update:LevelUpdateFunction, players:Array<PlayerScoreAndLevel>, player:PlayerScoreAndLevel): PlayerScoreAndLevel
-        return applyUpdate(player, update(players, player.username));
+    update (update:LevelUpdateFunction, archives:Array<PlayerArchive>, players:Array<PlayerScoreAndLevel>, player:PlayerScoreAndLevel): PlayerScoreAndLevel
+        return applyUpdate(player, update(players, archives, player.username));
 }

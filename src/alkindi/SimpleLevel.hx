@@ -25,7 +25,7 @@ class SimpleLevel
     // 
     // returns null if player doesn't exists.
     public static function
-    update (scores:Array<PlayerScoreAndLevel>, username:Username): LevelUpdate {
+    update (scores:Array<PlayerScoreAndLevel>, archives:Array<PlayerArchive>, username:Username): LevelUpdate {
         var player = Archives.forPlayerSL(scores, username);
         var bestScore = Games.getBestScore(scores);
         return player

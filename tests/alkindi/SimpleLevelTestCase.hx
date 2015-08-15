@@ -24,12 +24,14 @@ class SimpleLevelTestCase extends haxe.unit.TestCase {
             { username: "jeko", score: 20, level: 50 },
             { username: "sousou", score: 30, level: 60 }
         ];
-        assertEquals(null, SimpleLevel.update(players, "none"));
-        assertEquals(90, SimpleLevel.update(players, "sousou").newLevel);
-        assertEquals(57, SimpleLevel.update(players, "jeko").newLevel);
+        var asUpdateFunction:LevelUpdateFunction = SimpleLevel.update;
+        assertEquals(null, SimpleLevel.update(players, [], "none"));
+        assertEquals(90, SimpleLevel.update(players, [], "sousou").newLevel);
+        assertEquals(57, SimpleLevel.update(players, [], "jeko").newLevel);
     }
 
     public function testDecay() {
+        var asDecayFunction:LevelDecayFunction = SimpleLevel.decay;
         assertEquals(99, SimpleLevel.decay(0, 3600 * 24 + 1, 100).newLevel);
     }
 }

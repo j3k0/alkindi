@@ -13,10 +13,20 @@ class Games {
     maxScore (s1:Score, s2:Score): Score
         return s1 > s2 ? s1 : s2;
 
+    // Returns the best of 2 levels
+    public static inline function
+    maxLevel (s1:Level, s2:Level): Level
+        return s1 > s2 ? s1 : s2;
+
     // Returns the best of all players' scores
     public static inline function
     getBestScore (scores:Iterable<TScore>): Score
         return scores.map(Types.getScore).fold(maxScore, 0);
+
+    // Returns the best of all players' scores
+    public static inline function
+    getBestLevel (scores:Iterable<TLevel>): Level
+        return scores.map(Types.getLevel).fold(maxLevel, 0);
 
     // Return all players of a game
     public static inline function

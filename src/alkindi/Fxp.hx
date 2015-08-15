@@ -54,4 +54,11 @@ class Fxp {
             return macro null;
         }
     }
+
+    public static function
+    intersect<T>(a1:Array<T>, a2:Array<T>):Array<T> {
+        return a1.filter(function(t:T):Bool {
+            return a2.indexOf(t) >= 0;
+        });
+    }
 }

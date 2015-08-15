@@ -22,8 +22,8 @@ class Alkindi {
     // * `30` points for the player(s) with the best score
     // * `7` for other players
     public static function
-    simpleLevelUpdate (scores:Array<PlayerScoreAndLevel>, username:Username): LevelUpdate
-        return SimpleLevel.update(scores, username);
+    simpleLevelUpdate (scores:Array<PlayerScoreAndLevel>, archives:Array<PlayerArchive>, username:Username): LevelUpdate
+        return SimpleLevel.update(scores, archives, username);
 
     // Level decreases 1 point per day, but won't go below 0.
     public static function

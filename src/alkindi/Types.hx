@@ -86,7 +86,7 @@ typedef PlayerWinner = {
 
 // Define how Level updates while playing
 typedef LevelUpdateFunction =
-    Array<PlayerScoreAndLevel> -> Username -> LevelUpdate;
+    Array<PlayerScoreAndLevel> -> Array<PlayerArchive> -> Username -> LevelUpdate;
 
 // Define how Level decays while not playing
 // Player's level will decay from start date to end date,
