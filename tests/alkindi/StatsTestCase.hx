@@ -9,15 +9,15 @@ class StatsTestCase extends haxe.unit.TestCase {
 
     public function testVictories() {
         assertEquals(2, Stats.victories(TestData.complexArchive).length);
-        assertEquals(1981., Stats.victories(TestData.complexArchive)[0].date);
+        assertEquals(Alkindi.TRIPOCH + 1981., Stats.victories(TestData.complexArchive)[0].date);
         assertEquals(1, Stats.victories(TestData.complexArchive)[0].value);
-        assertEquals(2004., Stats.victories(TestData.complexArchive)[1].date);
+        assertEquals(Alkindi.TRIPOCH + 2004., Stats.victories(TestData.complexArchive)[1].date);
         assertEquals(2, Stats.victories(TestData.complexArchive)[1].value);
     }
 
     public function testDefeats() {
         assertEquals(1, Stats.defeats(TestData.complexArchive).length);
-        assertEquals(1990., Stats.defeats(TestData.complexArchive)[0].date);
+        assertEquals(Alkindi.TRIPOCH + 1990., Stats.defeats(TestData.complexArchive)[0].date);
         assertEquals(1, Stats.defeats(TestData.complexArchive)[0].value);
     }
 

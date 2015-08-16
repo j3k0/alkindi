@@ -33,7 +33,7 @@ class ArchivesTestCase extends haxe.unit.TestCase {
     }
 
     public function testLastGameDate() {
-        assertEquals(1981.,
+        assertEquals(Alkindi.TRIPOCH + 1981.,
             Archives.lastGameDate(TestData.archivesSousou1, "sousou")
             .maybe(0., Fxp.id));
         assertEquals(0.,

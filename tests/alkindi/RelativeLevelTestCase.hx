@@ -19,6 +19,10 @@ class RelativeLevelTestCase extends haxe.unit.TestCase {
         //assertFalse(RelativeLevel.maybeNewLevel(Maybe.of(20), winner).isNothing());
     }
 
+    public function testLatestTime() {
+        assertEquals(Alkindi.TRIPOCH + 1981, Std.int(RelativeLevel.latestTime(TestData.archivesSousou1)));
+    }
+
     public function testUpdate() {
         var players = [
             { username: "jeko", score: 20, level: 50 },
@@ -26,13 +30,11 @@ class RelativeLevelTestCase extends haxe.unit.TestCase {
         ];
         var asUpdateFunction:LevelUpdateFunction = RelativeLevel.update;
         assertEquals(null, RelativeLevel.update(players, [], "none"));
-        //assertEquals(90, RelativeLevel.update(players, [], "sousou").newLevel);
+        assertEquals(90, RelativeLevel.update(players, TestData.archivesSousou1, "sousou").newLevel);
+        TestData.archivesSousou1[0].games[0].game.date += 3600 * 24 * 30;
+        assertEquals(120, RelativeLevel.update(players, TestData.archivesSousou1, "sousou").newLevel);
+        TestData.archivesSousou1[0].games[0].game.date -= 3600 * 24 * 30;
         //assertEquals(57, RelativeLevel.update(players, [], "jeko").newLevel);
-    }
-
-    public function testDecay() {
-        var asDecayFunction:LevelDecayFunction = RelativeLevel.decay;
-        // assertEquals(99, RelativeLevel.decay(0, 3600 * 24 + 1, 100).newLevel);
     }
 }
 

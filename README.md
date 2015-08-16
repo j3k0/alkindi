@@ -174,6 +174,50 @@ Usage from actionscript.
 var outcomes:Array = Alkindi.addGame(myUpdate, Alkindi.simpleLevelDecay, archives, game);
 ```
 
+### relativeLevelUpdate
+
+This strategy will increase `level`:
+
+**For the winner**, by:
+
+    K(t) * w + 0.01 * d
+    1 if the above is less than 1.
+
+with: w = max(30 - r, 1)
+
+d is the difference of levels with the strongest player.
+(0 for the best player, positive integers for others)
+
+r is the number of repetitions of this game. A repetition is a game featuring exactly all of the same players.
+
+K(t) is a coefficient that increases with time.
+
+    K(t) = 2 ^ (t / M)
+    
+with T0 being the beginning of times (see Alkindi.TRIPOCH)
+This coefficient allow to give more weight to recent games than older games.
+
+The magic numbers are such as K(t + 1month) ~= K(t) * 2
+
+**For the loosers**, by:
+
+    0           for the strongest players
+    K(t) * l    for others
+
+with: l = max(7 - r, 0)
+
+K(t) and r defined as for winners
+
+Usage from javascript.
+```js
+var outcomes = alkindi.addGame(alkindi.relativeLevelUpdate, myDecay, archives, game);
+```
+
+Usage from actionscript.
+```actionscript
+var outcomes:Array = Alkindi.addGame(Alkindi.relativeLevelUpdate, myDecay, archives, game);
+```
+
 ## Basic Types
 
 ```haxe
